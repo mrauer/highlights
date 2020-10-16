@@ -6,7 +6,7 @@ import re
 #import statistics 
 
 # Load from JSON file
-f = open('json_file.txt', 'r')
+f = open('input.json', 'r')
 items = json.loads(f.read())
 
 # Parsing and ordering.
