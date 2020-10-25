@@ -7,6 +7,7 @@ from utils.utils import calc_mean_score, save_json
 from handlers.model_builder import Nima
 from handlers.data_generator import TestDataGenerator
 import subprocess
+import os
 
 
 def image_file_to_json(img_path):
@@ -33,18 +34,11 @@ def predict(model, data_generator):
 
 def main(base_model_name, weights_file, image_source, predictions_file, img_format='jpg'):
     # load samples
-
-    #BELOW WORKS
-    #f = open('/src/output/output.txt', 'w')
-    #f.write('hello')
-    #f.close()
-    print('BEFORE')
-    result = subprocess.run(['ls', '-l'], stdout=subprocess.PIPE)
-    print(result.stdout)
-    result = subprocess.run(['pwd'], stdout=subprocess.PIPE)
-    print(result.stdout)
-
-
+    f = open('/src/output/technical.txt', 'w')
+    f.close()
+    f2 = open('/src/output/aesthetic.txt', 'w')
+    f2.close()
+    print(os.environ['PREDICT_MODEL'])
     if os.path.isfile(image_source):
         image_dir, samples = image_file_to_json(image_source)
     else:
@@ -69,13 +63,15 @@ def main(base_model_name, weights_file, image_source, predictions_file, img_form
 
     print(json.dumps(samples, indent=2))
 
-    print('AFTER')
+    if os.environ['PREDICT_MODEL'].find('weights_mobilenet_technical_0.11.hdf5') != -1:
+        f = open('/src/output/technical.txt', 'w')
+        f.write(str(json.dumps(samples, indent=2)))
+        f.close()
+    elif os.environ['PREDICT_MODEL'].find('weights_mobilenet_aesthetic_0.07.hdf5') != -1:
+        f = open('/src/output/aesthetic.txt', 'w')
+        f.write(str(json.dumps(samples, indent=2)))
+        f.close()
 
-    #if predictions_file is not None:
-    #save_json(samples, 'output.txt')
-    f = open('/src/output/output.txt', 'w')
-    f.write(str(json.dumps(samples, indent=2)))
-    f.close()
 
 
 if __name__ == '__main__':

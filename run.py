@@ -8,7 +8,7 @@ SCORE_BIAS = 0
 FRAMES_GAP = 30
 
 # Load from JSON file
-f = open('input.json', 'r')
+f = open('./lib/output/aesthetic.txt', 'r')
 items = json.loads(f.read())
 
 # Parsing and ordering.
