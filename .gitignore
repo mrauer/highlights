@@ -1,5 +1,5 @@
+*.jpg
+source/*.AVI
+lib/output/*.txt
 .DS_Store
 .idea
-*.jpg
-input.json
-*.AVI
