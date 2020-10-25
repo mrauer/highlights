@@ -51,5 +51,3 @@ DOCKER_RUN="docker run
   --env PREDICT_MODEL="$WEIGHTS_FILE"
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
 eval $DOCKER_RUN
-#  -v "$OUTPUT_FILE":/src/output.txt
-# -v output.txt:/src/output.txt

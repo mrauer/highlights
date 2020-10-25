@@ -1,3 +1,5 @@
+all: tech aes
+
 build:
 	docker build -t highlights:latest .
 
@@ -14,7 +16,10 @@ frame:
 	ffmpeg -i source/$(video) -qscale:v 2 "frames/out-%01d.jpg"
 
 tech:
-	sh ./lib/technical.sh
+	sh ./lib/technical.sh && make exec action=tech
 
 aes:
-	sh ./lib/aesthetic.sh
+	sh ./lib/aesthetic.sh && make exec action=aes
+
+exec:
+	python ./run.py $(action)

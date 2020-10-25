@@ -1,13 +1,13 @@
-
-import os
+import argparse
 import glob
 import json
-import argparse
-from utils.utils import calc_mean_score, save_json
-from handlers.model_builder import Nima
-from handlers.data_generator import TestDataGenerator
-import subprocess
 import os
+
+from handlers.data_generator import TestDataGenerator
+from handlers.model_builder import Nima
+from utils.utils import calc_mean_score
+
+TECHNICAL_HDF5 = 'weights_mobilenet_technical_0.11.hdf5'
 
 
 def image_file_to_json(img_path):
@@ -29,16 +29,19 @@ def image_dir_to_json(img_dir, img_type='jpg'):
 
 
 def predict(model, data_generator):
-    return model.predict_generator(data_generator, workers=8, use_multiprocessing=True, verbose=1)
+    return model.predict_generator(
+        data_generator, workers=8, use_multiprocessing=True, verbose=1)
 
 
-def main(base_model_name, weights_file, image_source, predictions_file, img_format='jpg'):
-    # load samples
-    f = open('/src/output/technical.txt', 'w')
+def store_output(filename, output):
+    f = open('/'.join(['/src/output', filename]), 'w')
+    f.write(output)
     f.close()
-    f2 = open('/src/output/aesthetic.txt', 'w')
-    f2.close()
-    print(os.environ['PREDICT_MODEL'])
+
+
+def main(base_model_name, weights_file, image_source,
+         predictions_file, img_format='jpg'):
+    # load samples
     if os.path.isfile(image_source):
         image_dir, samples = image_file_to_json(image_source)
     else:
@@ -51,8 +54,10 @@ def main(base_model_name, weights_file, image_source, predictions_file, img_form
     nima.nima_model.load_weights(weights_file)
 
     # initialize data generator
-    data_generator = TestDataGenerator(samples, image_dir, 64, 10, nima.preprocessing_function(),
-                                       img_format=img_format)
+    data_generator = TestDataGenerator(
+        samples, image_dir, 64, 10,
+        nima.preprocessing_function(),
+        img_format=img_format)
 
     # get predictions
     predictions = predict(nima.nima_model, data_generator)
@@ -61,17 +66,13 @@ def main(base_model_name, weights_file, image_source, predictions_file, img_form
     for i, sample in enumerate(samples):
         sample['mean_score_prediction'] = calc_mean_score(predictions[i])
 
-    print(json.dumps(samples, indent=2))
+    output = json.dumps(samples, indent=2)
+    print(output)
 
-    if os.environ['PREDICT_MODEL'].find('weights_mobilenet_technical_0.11.hdf5') != -1:
-        f = open('/src/output/technical.txt', 'w')
-        f.write(str(json.dumps(samples, indent=2)))
-        f.close()
-    elif os.environ['PREDICT_MODEL'].find('weights_mobilenet_aesthetic_0.07.hdf5') != -1:
-        f = open('/src/output/aesthetic.txt', 'w')
-        f.write(str(json.dumps(samples, indent=2)))
-        f.close()
+    filename = 'technical.txt' if os.environ['PREDICT_MODEL'].find(
+        TECHNICAL_HDF5) != -1 else 'aesthetic.txt'
 
+    store_output(filename, output)
 
 
 if __name__ == '__main__':
@@ -80,7 +81,8 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--base-model-name', help='CNN base model name', required=True)
     parser.add_argument('-w', '--weights-file', help='path of weights file', required=True)
     parser.add_argument('-is', '--image-source', help='image directory or file', required=True)
-    parser.add_argument('-pf', '--predictions-file', help='file with predictions', required=False, default=None)
+    parser.add_argument('-pf', '--predictions-file', help='file with predictions',
+                        required=False, default=None)
 
     args = parser.parse_args()
 
