@@ -23,6 +23,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    --output-file)
+    OUTPUT_FILE="$2"
+    shift # past argument
+    shift # past value
+    ;;
     --image-source)
     IMAGE_SOURCE="$2"
     shift # past argument
@@ -42,7 +47,8 @@ DOCKER_RUN="docker run
   --entrypoint entrypoints/entrypoint.predict.cpu.sh \
   -v "$IMAGE_SOURCE":/src/$BASENAME_IS
   -v "$WEIGHTS_FILE":/src/weights.hdf5
-  -v "/tmp":/src/output.txt
+  -v "$OUTPUT_FILE":/src/output
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
-
 eval $DOCKER_RUN
+#  -v "$OUTPUT_FILE":/src/output.txt
+# -v output.txt:/src/output.txt
