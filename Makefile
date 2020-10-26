@@ -1,5 +1,11 @@
 all: tech aes
 
+help:
+	@echo "  help          displays the help section."
+	@echo "  vendor        build the ML image."
+	@echo "  frame         arg video=MOV00069.AVI converts video to frames."
+	@echo "  all           identify best images in set of frames."
+
 build:
 	docker build -t highlights:latest .
 

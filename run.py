@@ -1,7 +1,10 @@
+import base64
+import hashlib
 import json
 import os
 import re
 import sys
+import time
 
 import numpy as np
 
@@ -10,6 +13,7 @@ TECHNICAL_PATH = './lib/output/technical.txt'
 AESTHETIC_PATH = './lib/output/aesthetic.txt'
 TECHNICAL_PERCENTILE = 85
 AESTHETIC_PERCENTILE = 70
+FRAMES_DIR = 'frames/'
 
 
 def process_tech():
@@ -63,8 +67,23 @@ def process_aes():
                 pass
 
 
-if sys.argv[1] == 'aes':
-    process_aes()
+def generate_hash():
+    h = hashlib.sha1(str(time.time())).digest()
+    return re.sub(r'[^A-Za-z0-9 ]+', '', base64.b64encode(h)[:8])
+
+
+def bulk_rename():
+    files = os.listdir(FRAMES_DIR)
+    _hash = generate_hash()
+    for index, file in enumerate(files):
+        os.rename(os.path.join(FRAMES_DIR, file), os.path.join(
+            FRAMES_DIR, file.replace('out', _hash)))
+        print(file)
+
 
 if sys.argv[1] == 'tech':
     process_tech()
+
+if sys.argv[1] == 'aes':
+    process_aes()
+    bulk_rename()
