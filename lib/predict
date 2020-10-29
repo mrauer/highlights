@@ -28,6 +28,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    --video-source)
+    VIDEO_SOURCE="$2"
+    shift # past argument
+    shift # past value
+    ;;
     --image-source)
     IMAGE_SOURCE="$2"
     shift # past argument
@@ -45,9 +50,13 @@ BASENAME_IS=`basename $IMAGE_SOURCE`
 # run predictions
 DOCKER_RUN="docker run
   --entrypoint entrypoints/entrypoint.predict.cpu.sh \
-  -v "$IMAGE_SOURCE":/src/$BASENAME_IS
+  -v "$IMAGE_SOURCE":/src/frames
   -v "$WEIGHTS_FILE":/src/weights.hdf5
   -v "$OUTPUT_FILE":/src/output
+  -v "$VIDEO_SOURCE":/src/source
   --env PREDICT_MODEL="$WEIGHTS_FILE"
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
 eval $DOCKER_RUN
+
+
+# -v "$IMAGE_SOURCE":/src/$BASENAME_IS
