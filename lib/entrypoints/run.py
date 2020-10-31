@@ -9,11 +9,11 @@ import time
 import numpy as np
 
 FRAMES_GAP = 30
-TECHNICAL_PATH = './lib/output/technical.txt'
-AESTHETIC_PATH = './lib/output/aesthetic.txt'
+TECHNICAL_PATH = '../src/output/technical.txt'
+AESTHETIC_PATH = '../src/output/aesthetic.txt'
 TECHNICAL_PERCENTILE = 85
 AESTHETIC_PERCENTILE = 70
-FRAMES_DIR = 'frames/'
+FRAMES_DIR = '../src/frames/'
 
 
 def process_tech():
@@ -29,9 +29,9 @@ def process_tech():
 
     for key, value in sorted_items.items():
         if float(value) <= np.percentile(
-             sorted_items.values(), TECHNICAL_PERCENTILE):
+             list(sorted_items.values()), TECHNICAL_PERCENTILE):
             try:
-                os.remove('frames/out-'+str(key)+'.jpg')
+                os.remove('../src/frames/out-'+str(key)+'.jpg')
             except Exception:
                 pass
 
@@ -51,10 +51,11 @@ def process_aes():
     last_good_key = 0
     temp_idx = dict()
     for key, value in sorted_items.items():
-        if value > np.percentile(sorted_items.values(), AESTHETIC_PERCENTILE):
+        if value > np.percentile(
+             list(sorted_items.values()), AESTHETIC_PERCENTILE):
             temp_idx[key] = value
             if key > last_good_key + FRAMES_GAP:
-                good_idx.add(max(temp_idx.items(), key=lambda k: k[1])[0])
+                good_idx.add(max(temp_idx, key=temp_idx.get))
                 temp_idx = dict()
             last_good_key = key
     print(good_idx)
@@ -62,14 +63,16 @@ def process_aes():
     for key, value in sorted_items.items():
         if key not in good_idx:
             try:
-                os.remove('frames/out-'+str(key)+'.jpg')
+                os.remove('../src/frames/out-'+str(key)+'.jpg')
             except Exception:
                 pass
 
 
 def generate_hash():
-    h = hashlib.sha1(str(time.time())).digest()
-    return re.sub(r'[^A-Za-z0-9 ]+', '', base64.b64encode(h)[:8])
+    h = hashlib.sha1(str(time.time()).encode('utf-8')).digest()
+    return re.sub(
+        r'[^A-Za-z0-9 ]+', '',
+        base64.b64encode(h).decode('utf-8')[:8])
 
 
 def bulk_rename():

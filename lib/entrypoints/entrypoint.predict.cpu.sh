@@ -19,3 +19,10 @@ python -m evaluater.predict \
 --base-model-name $BASE_MODEL_NAME \
 --weights-file $WEIGHTS_FILE \
 --image-source $IMAGE_SOURCE
+
+if [ $ACTION == "technical" ]
+then
+  python /src/entrypoints/run.py tech
+else
+  python /src/entrypoints/run.py aes
+fi
