@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import time
+from collections import OrderedDict
 
 import numpy as np
 
@@ -47,15 +48,21 @@ def process_aes():
         _id = int(re.findall(r'\d+', item['image_id'])[0])
         sorted_items[_id] = float(item['mean_score_prediction'])
 
-    good_idx = set()
+    good_idx = list()
     last_good_key = 0
     temp_idx = dict()
-    for key, value in sorted_items.items():
-        if value > np.percentile(
-             list(sorted_items.values()), AESTHETIC_PERCENTILE):
-            temp_idx[key] = value
+    aes_limit = np.percentile(
+        list(sorted_items.values()), AESTHETIC_PERCENTILE)
+    sorted_dict = OrderedDict(sorted(sorted_items.items(), key=lambda t: t[0]))
+
+    max_value = 0
+    for key, value in sorted_dict.items():
+        if value > aes_limit:
+            if key > max_value + FRAMES_GAP:
+                temp_idx[key] = value
             if key > last_good_key + FRAMES_GAP:
-                good_idx.add(max(temp_idx, key=temp_idx.get))
+                max_value = max(temp_idx, key=temp_idx.get)
+                good_idx.append(max_value)
                 temp_idx = dict()
             last_good_key = key
     print(good_idx)
