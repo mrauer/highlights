@@ -51,10 +51,11 @@ def process_aes():
     last_good_key = 0
     temp_idx = dict()
     for key, value in sorted_items.items():
-        if value > np.percentile(list(sorted_items.values()), AESTHETIC_PERCENTILE):
+        if value > np.percentile(
+             list(sorted_items.values()), AESTHETIC_PERCENTILE):
             temp_idx[key] = value
             if key > last_good_key + FRAMES_GAP:
-                good_idx.add(max(temp_idx.items(), key=lambda k: k[1])[0])
+                good_idx.add(max(temp_idx, key=temp_idx.get))
                 temp_idx = dict()
             last_good_key = key
     print(good_idx)
@@ -69,7 +70,9 @@ def process_aes():
 
 def generate_hash():
     h = hashlib.sha1(str(time.time()).encode('utf-8')).digest()
-    return re.sub(r'[^A-Za-z0-9 ]+', '', base64.b64encode(h).decode('utf-8')[:8])
+    return re.sub(
+        r'[^A-Za-z0-9 ]+', '',
+        base64.b64encode(h).decode('utf-8')[:8])
 
 
 def bulk_rename():
