@@ -1,5 +1,5 @@
-all: tech aes
-temp: crop aes
+nocrop: tech aes
+crop: techcrop aes
 
 help:
 	@echo "  help          will display the help section."
@@ -16,7 +16,7 @@ clean:
 tech:
 	sh ./lib/technical.sh nocrop
 
-crop:
+techcrop:
 	sh ./lib/technical.sh crop
 
 aes:
