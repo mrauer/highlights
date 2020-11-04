@@ -33,6 +33,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    --crop-flag)
+    CROP_FLAG="$2"
+    shift # past argument
+    shift # past value
+    ;;
     --image-source)
     IMAGE_SOURCE="$2"
     shift # past argument
@@ -55,5 +60,6 @@ DOCKER_RUN="docker run
   -v "$OUTPUT_FILE":/src/output
   -v "$VIDEO_SOURCE":/src/source
   --env PREDICT_MODEL="$WEIGHTS_FILE"
+  --env CROP_FLAG="$CROP_FLAG"
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
 eval $DOCKER_RUN
