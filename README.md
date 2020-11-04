@@ -6,11 +6,11 @@ Highlights is a software that detects the best moments of a video. You can trans
 
 ## How does it work?
 
-Multiple steps are necessary. The very first step is the conversion of the provided video to a set of images. These images will then go through two convolutional neural networks: one for technical aspects (blurry, on focus, etc...), and one for quality (ex: objects recognition). We keep a relatively high percentile of the best images from the initial set (85% for technical aspects, and 70% for aesthetic).
+Multiple steps are necessary. The very first step is the conversion of the provided video to a set of images. These images will then go through two convolutional neural networks: one for technical aspects (blurry, on focus, etc...), and one for quality (ex: objects recognition). We keep just of small amount of images from the initial set (above 85% percentile for technical aspects, and 70% percentile for aesthetic).
 
 ## How to use highlights?
 
-You need to have <a href="https://www.docker.com/">Docker</a> installed. The rest will happend within the container.
+You need to have <a href="https://www.docker.com/">Docker</a> installed. The rest will happen within the container.
 
 Add the video you want to process into the `/source` directory (.avi extension).
 
