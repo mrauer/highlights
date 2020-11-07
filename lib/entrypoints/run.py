@@ -16,8 +16,13 @@ TECHNICAL_PERCENTILE = 85
 AESTHETIC_PERCENTILE = 70
 FRAMES_DIR = '../src/frames/'
 
+DRY_RUN = False
+if len(sys.argv) == 3:
+    if sys.argv[2] == '--dry-run':
+        DRY_RUN = True
 
-def process_tech():
+
+def process_tech(dry_run=None):
     # Load from JSON file
     f = open(TECHNICAL_PATH, 'r')
     items = json.loads(f.read())
@@ -32,12 +37,13 @@ def process_tech():
         if float(value) <= np.percentile(
              list(sorted_items.values()), TECHNICAL_PERCENTILE):
             try:
-                os.remove('../src/frames/out-'+str(key)+'.jpg')
+                if not dry_run:
+                    os.remove('../src/frames/out-'+str(key)+'.jpg')
             except Exception:
                 pass
 
 
-def process_aes():
+def process_aes(dry_run=None):
     # Load from JSON file
     f = open(AESTHETIC_PATH, 'r')
     items = json.loads(f.read())
@@ -70,7 +76,8 @@ def process_aes():
     for key, value in sorted_items.items():
         if key not in good_idx:
             try:
-                os.remove('../src/frames/out-'+str(key)+'.jpg')
+                if not dry_run:
+                    os.remove('../src/frames/out-'+str(key)+'.jpg')
             except Exception:
                 pass
 
@@ -82,18 +89,19 @@ def generate_hash():
         base64.b64encode(h).decode('utf-8')[:8])
 
 
-def bulk_rename():
-    files = os.listdir(FRAMES_DIR)
-    _hash = generate_hash()
-    for index, file in enumerate(files):
-        os.rename(os.path.join(FRAMES_DIR, file), os.path.join(
-            FRAMES_DIR, file.replace('out', _hash)))
-        print(file)
+def bulk_rename(dry_run=None):
+    if not dry_run:
+        files = os.listdir(FRAMES_DIR)
+        _hash = generate_hash()
+        for index, file in enumerate(files):
+            os.rename(os.path.join(FRAMES_DIR, file), os.path.join(
+                FRAMES_DIR, file.replace('out', _hash)))
+            print(file)
 
 
 if sys.argv[1] == 'tech':
-    process_tech()
+    process_tech(dry_run=DRY_RUN)
 
 if sys.argv[1] == 'aes':
-    process_aes()
-    bulk_rename()
+    process_aes(dry_run=DRY_RUN)
+    bulk_rename(dry_run=DRY_RUN)

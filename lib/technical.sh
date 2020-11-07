@@ -1,3 +1,15 @@
+#!/bin/bash
+
+NO_CROP="false"
+if [[ "$1" == *"no-crop"* ]]; then
+  NO_CROP="true"
+fi
+
+DRY_RUN="false"
+if [[ "$1" == *"dry-run"* ]]; then
+  DRY_RUN="true"
+fi
+
 ./lib/predict  \
     --docker-image nima-cpu \
     --base-model-name MobileNet \
@@ -5,4 +17,5 @@
     --image-source $(pwd)/frames \
     --video-source $(pwd)/source \
     --output-file $(pwd)/lib/output \
-    --crop-flag $1
+    --no-crop $NO_CROP \
+    --dry-run $DRY_RUN
