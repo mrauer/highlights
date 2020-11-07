@@ -1,5 +1,4 @@
-nocrop: tech aes
-crop: techcrop aes
+all: tech aes
 
 help:
 	@echo "  help          will display the help section."
@@ -14,10 +13,7 @@ clean:
 	rm frames/*.jpg
 
 tech:
-	sh ./lib/technical.sh nocrop
-
-techcrop:
-	sh ./lib/technical.sh crop
+	sh ./lib/technical.sh $(OPTS)
 
 aes:
-	sh ./lib/aesthetic.sh
+	sh ./lib/aesthetic.sh $(OPTS)

@@ -17,8 +17,15 @@ Add the video you want to process into the `/source` directory (.avi extension).
 Then type the following set of commands at the root of the project:
 
 ```
-make vendor (build the docker image)
-make nocrop (process the video end to end)
+make all (process all)
+make all OPTS="no-crop" (don't crop the video, keep timestamp)
+make all OPTS="dry-run" (do not delete frames)
+make all OPTS="dry-run,no-crop" (both options)
+make clean (remove all frames)
 ```
 
 The output images will be available in the `/frames` directory at the end of the process.
+
+## Credits
+
+Credits to https://github.com/idealo/image-quality-assessment under Apache-2.0 License for which the code is partially used in this project.
