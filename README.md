@@ -25,3 +25,7 @@ make clean (remove all frames)
 ```
 
 The output images will be available in the `/frames` directory at the end of the process.
+
+## Credits
+
+Credits to https://github.com/idealo/image-quality-assessment under Apache-2.0 License for which the code is partially used in this project.
