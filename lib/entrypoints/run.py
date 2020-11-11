@@ -9,11 +9,12 @@ from collections import OrderedDict
 
 import numpy as np
 
-FRAMES_GAP = 30
+FRAMES_GAP = 15
 TECHNICAL_PATH = '../src/output/technical.txt'
 AESTHETIC_PATH = '../src/output/aesthetic.txt'
-TECHNICAL_PERCENTILE = 85
-AESTHETIC_PERCENTILE = 70
+TECHNICAL_PERCENTILE = 70
+AESTHETIC_PERCENTILE = 95
+
 FRAMES_DIR = '../src/frames/'
 
 DRY_RUN = False
@@ -60,7 +61,7 @@ def process_aes(dry_run=None):
     aes_limit = np.percentile(
         list(sorted_items.values()), AESTHETIC_PERCENTILE)
     sorted_dict = OrderedDict(sorted(sorted_items.items(), key=lambda t: t[0]))
-
+    print('AESTHETIC_LIMIT is {}'.format(aes_limit))
     max_value = 0
     for key, value in sorted_dict.items():
         if value > aes_limit:
