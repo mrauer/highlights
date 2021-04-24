@@ -12,8 +12,8 @@ import numpy as np
 FRAMES_GAP = 15
 TECHNICAL_PATH = '../src/output/technical.txt'
 AESTHETIC_PATH = '../src/output/aesthetic.txt'
-TECHNICAL_PERCENTILE = 70
-AESTHETIC_PERCENTILE = 95
+TECHNICAL_PERCENTILE = 75
+AESTHETIC_PERCENTILE = 75
 
 FRAMES_DIR = '../src/frames/'
 

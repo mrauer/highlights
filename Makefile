@@ -1,3 +1,7 @@
+SD_PATH=/Volumes/NO\ NAME/DCIM/Movie/*
+OUTPUT_PATH=./output
+SOURCE_PATH=./source
+
 all: tech aes
 
 help:
@@ -17,3 +21,15 @@ tech:
 
 aes:
 	sh ./lib/aesthetic.sh $(OPTS)
+
+sd:
+	ls -ldh ${SD_PATH} | awk '{print $$6, $$7, $$5, $$9"\\ "$$10}' 
+
+mp3:
+	ffmpeg -i $(path) ${OUTPUT_PATH}/$(notdir $(path)).mp3
+
+timelapse:
+	ffmpeg -i $(path) -vcodec libx265 -crf 28 -filter_complex "[0:v]setpts=1/6*PTS[v];[0:a]atempo=6[a]" -map "[v]" -map "[a]" ${OUTPUT_PATH}/$(notdir $(path))
+
+cut:
+	ffmpeg -i $(path) -ss $(start) -t $(end) ${SOURCE_PATH}/$(notdir $(path))

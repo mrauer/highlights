@@ -4,3 +4,6 @@ lib/output/*.txt
 .DS_Store
 .idea
 temp.py
+output/*.mp4
+output/*.MP4
+output/*.mp3
