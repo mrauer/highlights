@@ -30,9 +30,8 @@ The output images will be available in the `/frames` directory at the end of the
 
 ```sh
 make sd (get list of videos on SD card)
-make mp3 path="<video_path>" (extract the sound of a video as mp3)
-make timelapse path="<video_path>" (make a timelapse from the video)
-make cut path="/Volumes/NO\ NAME/DCIM/Movie/2001_0204_192734_058.MP4" start=0 end=60 (cut a video)
+make assets path="<video_path>" (creates mp3 + timelapse)
+make all path="<video_path>" start=0 end=90 (process a video chunk)
 ```
 
 ## Credits
