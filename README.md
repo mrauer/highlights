@@ -30,8 +30,9 @@ The output images will be available in the `/frames` directory at the end of the
 
 ```sh
 make sd (get list of videos on SD card)
+make glasses (get list of videos on Glasses)
 make assets path="<video_path>" (creates mp3 + timelapse)
-make all path="<video_path>" start=0 end=90 (process a video chunk)
+make all path="<video_path>" start=<start_second> (process from start seconds, 2 min chunk)
 ```
 
 ## Credits

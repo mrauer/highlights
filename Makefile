@@ -3,7 +3,6 @@
 GLASSES_PATH=/Volumes/NO\ NAME/DCIM/Movie/*
 SD_PATH=/Volumes/NO\ NAME/sd/*
 OUTPUT_PATH=./output
-SOURCE_PATH=./source
 
 all: frames tech aes
 assets: mp3 timelapse
