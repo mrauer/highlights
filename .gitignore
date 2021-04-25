@@ -1,6 +1,6 @@
+.DS_Store
+.idea
 *.jpg
 source/*.AVI
 lib/output/*.txt
-.DS_Store
-.idea
-temp.py
+output/*.mp*

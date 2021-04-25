@@ -16,7 +16,7 @@ Add the video you want to process into the `/source` directory (.avi extension).
 
 Then type the following set of commands at the root of the project:
 
-```
+```sh
 make all (process all)
 make all OPTS="no-crop" (don't crop the video, keep timestamp)
 make all OPTS="dry-run" (do not delete frames)
@@ -25,6 +25,15 @@ make clean (remove all frames)
 ```
 
 The output images will be available in the `/frames` directory at the end of the process.
+
+## Additional commands
+
+```sh
+make sd (get list of videos on SD card)
+make glasses (get list of videos on Glasses)
+make assets path="<video_path>" (creates mp3 + timelapse)
+make all path="<video_path>" start=<start_second> (process from start seconds, 2 min chunk)
+```
 
 ## Credits
 
