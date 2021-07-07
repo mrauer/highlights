@@ -4,7 +4,7 @@ import os
 import sys
 import time
 
-HIGHTLIGHTS_SD_PATH = os.environ['HIGHTLIGHTS_SD_PATH']
+HIGHTLIGHTS_SOURCE_PATH = os.environ['HIGHTLIGHTS_SOURCE_PATH']
 HIGHTLIGHTS_OUTPUT_PATH = os.environ['HIGHTLIGHTS_OUTPUT_PATH']
 RATIO = 15  # ratio space needed vs. disk.
 DEFAULT_NUM_JOBS = 1
@@ -17,7 +17,7 @@ def available_space_bytes():
 
 
 def get_next_file():
-    files = filter(os.path.isfile, glob.glob(HIGHTLIGHTS_SD_PATH + '*'))
+    files = filter(os.path.isfile, glob.glob(HIGHTLIGHTS_SOURCE_PATH + '*'))
     files = sorted(files, key=lambda x: os.stat(x).st_size)
     for file in files:
         if os.stat(file).st_size * RATIO < available_space_bytes():
