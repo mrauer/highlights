@@ -20,7 +20,7 @@ clean:
 	rm frames/*.jpg
 
 frames:
-	ffmpeg -i $(path) -ss $(start) -t 120 -qscale:v 2 "./frames/out-%01d.jpg"
+	ffmpeg -i $(path) -ss $(start) -t 2000 -qscale:v 2 "./frames/out-%01d.jpg"
 
 tech:
 	sh ./lib/technical.sh $(OPTS)

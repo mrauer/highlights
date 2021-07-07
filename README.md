@@ -26,6 +26,23 @@ make clean (remove all frames)
 
 The output images will be available in the `/frames` directory at the end of the process.
 
+## Bulk Processing
+
+It is now possible to bulk process a list of videos.
+
+This is the command:
+
+```sh
+python3 bulk.py --jobs <num_videos_to_process>
+```
+
+Before using this feature, you must see the following environment variables:
+
+```sh
+HIGHTLIGHTS_SOURCE_PATH (where you list of *.mp4 is located)
+HIGHTLIGHTS_OUTPUT_PATH (where to store the final pictures + timelapse)
+```
+
 ## Additional commands
 
 ```sh

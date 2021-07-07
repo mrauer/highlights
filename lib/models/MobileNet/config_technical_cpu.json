@@ -4,7 +4,7 @@
   "base_model_name": "MobileNet",
   "existing_weights": null,
   "n_classes": 10,
-  "batch_size": 8,
+  "batch_size": 1,
   "epochs_train_dense": 1,
   "learning_rate_dense": 0.001,
   "decay_dense": 0,
@@ -13,6 +13,6 @@
   "decay_all": 0,
   "dropout_rate": 0.75,
   "multiprocessing_data_load": false,
-  "num_workers_data_load": 10,
+  "num_workers_data_load": 2,
   "img_format": "jpg"
 }
