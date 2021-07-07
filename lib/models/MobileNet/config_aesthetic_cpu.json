@@ -4,7 +4,7 @@
   "base_model_name": "MobileNet",
   "existing_weights": null,
   "n_classes": 10,
-  "batch_size": 96,
+  "batch_size": 1,
   "epochs_train_dense": 5,
   "learning_rate_dense": 0.001,
   "decay_dense": 0,
@@ -14,5 +14,5 @@
   "l2_reg": null,
   "dropout_rate": 0.75,
   "multiprocessing_data_load": false,
-  "num_workers_data_load": 1
+  "num_workers_data_load": 2
 }
