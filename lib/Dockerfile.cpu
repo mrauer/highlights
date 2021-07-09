@@ -12,8 +12,8 @@ RUN pip install --no-cache-dir --upgrade pip==21.1.3 && \
 
 WORKDIR /
 
-COPY src /src
-COPY entrypoints /src/entrypoints
+COPY src src
+COPY entrypoints src/entrypoints
 
 ENV PYTHONPATH='/src/:$PYTHONPATH'
 
