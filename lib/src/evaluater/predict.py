@@ -29,7 +29,7 @@ def image_dir_to_json(img_dir, img_type='jpg'):
 
 
 def predict(model, data_generator):
-    return model.predict_generator(
+    return model.predict(
         data_generator, workers=8, use_multiprocessing=True, verbose=1)
 
 

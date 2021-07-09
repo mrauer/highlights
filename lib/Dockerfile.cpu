@@ -1,21 +1,14 @@
-FROM tensorflow/tensorflow:2.0.0-py3
+FROM tensorflow/tensorflow:2.2.3-py3
 
 # Install system packages
-RUN apt-get update && apt-get install -y ffmpeg \
-      bzip2 \
-      g++ \
-      git \
-      graphviz \
-      libgl1-mesa-glx \
-      libhdf5-dev \
-      openmpi-bin \
-      wget
+RUN apt-get update && apt-get install -y \
+      ffmpeg
 
 RUN rm -rf /var/lib/apt/lists/*
 
 COPY /src/requirements.txt requirements.txt
 
-RUN pip install --upgrade pip==20.2.4 && \
+RUN pip install --upgrade pip==21.1.3 && \
     pip install -r requirements.txt
 
 COPY src /src
