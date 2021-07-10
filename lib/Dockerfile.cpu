@@ -10,11 +10,11 @@ COPY /src/requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade pip==21.1.3 && \
     pip install --no-cache-dir -r requirements.txt
 
-WORKDIR /
+WORKDIR /src
 
-COPY src src
-COPY entrypoints src/entrypoints
+COPY src .
+COPY entrypoints /src/entrypoints
 
 ENV PYTHONPATH='/src/:$PYTHONPATH'
 
-ENTRYPOINT ["entrypoints/entrypoint.train.cpu.sh"]
+ENTRYPOINT ["/src/entrypoints/entrypoint.train.cpu.sh"]
