@@ -18,7 +18,7 @@ def image_file_to_json(img_path):
 
 
 def image_dir_to_json(img_dir, img_type='jpg'):
-    img_paths = glob.glob(os.path.join(img_dir, '*.'+img_type))
+    img_paths = glob.glob(os.path.join(img_dir, '*.' + img_type))
 
     samples = []
     for img_path in img_paths:
@@ -29,7 +29,7 @@ def image_dir_to_json(img_dir, img_type='jpg'):
 
 
 def predict(model, data_generator):
-    return model.predict_generator(
+    return model.predict(
         data_generator, workers=8, use_multiprocessing=True, verbose=1)
 
 
