@@ -10,7 +10,7 @@ Multiple steps are necessary. The very first step is the conversion of the provi
 
 ## How to use highlights?
 
-You need to have <a href="https://www.docker.com/">Docker</a> and <b>ffmpeg<b> installed in your local machine. The rest will happen within the container.
+You need to have <a href="https://www.docker.com/">Docker</a> and <b>ffmpeg</b> installed in your local machine. The rest will happen within the container.
 
 First, set the following environment variables in your local machine:
 
@@ -24,16 +24,18 @@ Then those are the relevant commands to use the software. You must be at the roo
 ```sh
 mave vendor (build the docker image, first time use only)
 python3 bulk.py --jobs <num_videos_to_process> (process a given number of videos)
-make clean (remove all frames, in case the process has stopped in the middle)
 ```
 
 For each video processed, there will be a directory created with the best images found, a timelapse of the original video at a 6x speed, and the original sound in mp3.
+
+In case your file is too large, the process will automatically cut it in half.
 
 ## Additional commands
 
 ```sh
 make sd (get list of videos from the sources)
 make assets path="<video_path>" (creates mp3 + timelapse only)
+make clean (clean temporary images)
 ```
 
 ## Credits
