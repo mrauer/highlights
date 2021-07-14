@@ -1,6 +1,7 @@
 import argparse
 import glob
 import os
+import subprocess
 import sys
 import time
 
@@ -9,11 +10,28 @@ HIGHTLIGHTS_OUTPUT_PATH = os.environ['HIGHTLIGHTS_OUTPUT_PATH']
 RATIO = 15  # ratio space needed vs. disk.
 DEFAULT_NUM_JOBS = 1
 ERROR_CODE = 1
+FFPROBE_CMD = 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "{}"'
+FFMPEG_CMD = 'ffmpeg -i "{}" -ss {} -t {} "{}"'
+RM_CMD = 'rm "{}"'
 
 
 def available_space_bytes():
     disk = os.statvfs('/')
     return (disk.f_bavail * disk.f_frsize)
+
+
+def cut_file_in_half(file_path):
+    ret = 1
+    duration_cmd = subprocess.check_output(FFPROBE_CMD.format(file_path), shell=True)
+    duration = int(float(duration_cmd.decode("utf-8") .replace('\n', '')))
+    half_duration = int(duration / 2)
+    # first chunk.
+    first = os.system(FFMPEG_CMD.format(file_path, '0', str(half_duration), ''.join([file_path.split('.')[0], '_first.mp4'])))
+    # second chunk.
+    second = os.system(FFMPEG_CMD.format(file_path, str(half_duration), str(half_duration), ''.join([file_path.split('.')[0], '_second.mp4'])))
+    if first + second == 0:
+        ret = os.system(RM_CMD.format(file_path))
+    return ret
 
 
 def get_next_file():
@@ -22,6 +40,10 @@ def get_next_file():
     for file in files:
         if os.stat(file).st_size * RATIO < available_space_bytes():
             return file.replace(' ', '\\ ')
+        # file is too large, divide in 2.
+        ret = cut_file_in_half(file)
+        if ret == ERROR_CODE:
+            break
     return ERROR_CODE
 
 
