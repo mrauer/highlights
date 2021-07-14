@@ -1,8 +1,8 @@
 # Highlights
 
-Highlights is a software that detects the best moments of a video. You can transform a long video to a set of images retracing the best shots using simple AI. Ideal for GoPros or any devices that records hours of videos and for which you want to be able to get a gallery of the top quality images as well as storing it at a much lower space toll than with the original format.
+Highlights is a software that detects the best moments of a video. You can transform a long video into a set of images retracing the best shots using simple AI. Ideal for GoPros or any devices that records hours of videos and for which you want to be able to get a gallery of the top quality images as well as storing it at a much lower space toll than with the original format.
 
-<img src="./img/gallery.png" width="800px" />
+<img src="./img/gallery.png" width="900px" />
 
 ## How does it work?
 
@@ -12,7 +12,7 @@ Multiple steps are necessary. The very first step is the conversion of the provi
 
 You need to have <a href="https://www.docker.com/">Docker</a> and <b>ffmpeg</b> installed in your local machine. The rest will happen within the container.
 
-First, set the following environment variables in your local machine:
+First, set the following environment variables on your local machine:
 
 ```sh
 HIGHTLIGHTS_SOURCE_PATH (where all your *.mp4 are located)
@@ -28,7 +28,7 @@ python3 bulk.py --jobs <num_videos_to_process> (process a given number of videos
 
 For each video processed, there will be a directory created with the best images found, a timelapse of the original video at a 6x speed, and the original sound in mp3.
 
-In case your file is too large, the process will automatically cut it in half.
+In case your file is too large, the process will automatically cut it in half. The more available space you have the bigger files you will be able to process.
 
 ## Additional commands
 
