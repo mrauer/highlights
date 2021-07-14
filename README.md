@@ -1,8 +1,8 @@
 # Highlights
 
-Highlights is a software that detects the best moments of a video. You can transform a long video to a set of images retracing the best shots using simple AI. Ideal for GoPros or any devices that records hours of videos and for which you want to be able to get a gallery of the top quality images as well as storing it at a much lower space toll than with the original format.
+Highlights is a software that detects the best moments in a video. You can transform a long video into a set of images retracing the best shots using simple AI. Ideal for GoPros or any devices that records hours of videos and for which you want to be able to get a gallery of the top quality images as well as storing it at a much lower space toll than with the original format.
 
-<img src="./img/gallery.png" width="700px" />
+<img src="./img/gallery.png" width="900px" />
 
 ## How does it work?
 
@@ -10,46 +10,32 @@ Multiple steps are necessary. The very first step is the conversion of the provi
 
 ## How to use highlights?
 
-You need to have <a href="https://www.docker.com/">Docker</a> installed. The rest will happen within the container.
+You need to have <a href="https://www.docker.com/">Docker</a> and <b>ffmpeg</b> installed in your local machine. The rest will happen within the container.
 
-Add the video you want to process into the `/source` directory (.avi extension).
-
-Then type the following set of commands at the root of the project:
+First, set the following environment variables on your local machine:
 
 ```sh
-make all (process all)
-make all OPTS="no-crop" (don't crop the video, keep timestamp)
-make all OPTS="dry-run" (do not delete frames)
-make all OPTS="dry-run,no-crop" (both options)
-make clean (remove all frames)
+HIGHTLIGHTS_SOURCE_PATH (where all your *.mp4 are located)
+HIGHTLIGHTS_OUTPUT_PATH (where you want the data to be outputted)
 ```
 
-The output images will be available in the `/frames` directory at the end of the process.
-
-## Bulk Processing
-
-It is now possible to bulk process a list of videos.
-
-This is the command:
+Then those are the relevant commands to use the software. You must be at the root of the project:
 
 ```sh
-python3 bulk.py --jobs <num_videos_to_process>
+mave vendor (build the docker image, first time use only)
+python3 bulk.py --jobs <num_videos_to_process> (process a given number of videos)
 ```
 
-Before using this feature, you must see the following environment variables:
+For each video processed, there will be a directory created with the best images found, a timelapse of the original video at a 6x speed, and the original sound in mp3.
 
-```sh
-HIGHTLIGHTS_SOURCE_PATH (where you list of *.mp4 is located)
-HIGHTLIGHTS_OUTPUT_PATH (where to store the final pictures + timelapse)
-```
+In case your file is too large, the process will automatically cut it in half. The more available space you have the bigger files you will be able to process.
 
 ## Additional commands
 
 ```sh
-make sd (get list of videos on SD card)
-make glasses (get list of videos on Glasses)
-make assets path="<video_path>" (creates mp3 + timelapse)
-make all path="<video_path>" start=<start_second> (process from start seconds, 2 min chunk)
+make sd (get list of videos from the sources)
+make assets path="<video_path>" (creates mp3 + timelapse only)
+make clean (clean temporary images)
 ```
 
 ## Credits
