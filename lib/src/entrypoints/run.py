@@ -39,7 +39,7 @@ def process_tech(dry_run=None):
              list(sorted_items.values()), TECHNICAL_PERCENTILE):
             try:
                 if not dry_run:
-                    os.remove('../src/frames/out-'+str(key)+'.jpg')
+                    os.remove('../src/frames/out-{}.jpg'.format(key))
             except Exception:
                 pass
 
@@ -78,7 +78,7 @@ def process_aes(dry_run=None):
         if key not in good_idx:
             try:
                 if not dry_run:
-                    os.remove('../src/frames/out-'+str(key)+'.jpg')
+                    os.remove('../src/frames/out-{}.jpg'.format(key))
             except Exception:
                 pass
 

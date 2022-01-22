@@ -13,9 +13,9 @@ fi
 ./lib/predict  \
     --docker-image highlihts-cpu \
     --base-model-name MobileNet \
-    --weights-file $(pwd)/lib/models/MobileNet/weights_mobilenet_aesthetic_0.07.hdf5 \
-    --image-source $(pwd)/frames \
-    --video-source $(pwd)/source \
-    --output-file $(pwd)/lib/output \
-    --no-crop $NO_CROP \
-    --dry-run $DRY_RUN
+    --weights-file "$(pwd)"/lib/models/MobileNet/weights_mobilenet_aesthetic_0.07.hdf5 \
+    --image-source "$(pwd)"/frames \
+    --video-source "$(pwd)"/source \
+    --output-file "$(pwd)"/lib/output \
+    --no-crop "$NO_CROP" \
+    --dry-run "$DRY_RUN"

@@ -68,5 +68,4 @@ DOCKER_RUN="docker run
   --env NO_CROP="$NO_CROP"
   --env DRY_RUN="$DRY_RUN"
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
-echo $DOCKER_RUN
 eval $DOCKER_RUN
