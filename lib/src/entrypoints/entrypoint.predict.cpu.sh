@@ -4,7 +4,7 @@ set -e
 BASE_MODEL_NAME="$1"
 WEIGHTS_FILE="$2"
 IMAGE_SOURCE="$3"
-DRY_RUN="$(echo "$DRY_RUN")"
+DRY_RUN="$DRY_RUN"
 
 ACTION="$(echo "$PREDICT_MODEL"| cut -d'_' -f 3)"
 

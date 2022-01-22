@@ -56,4 +56,6 @@ jobs:
           VALIDATE_PYTHON_ISORT: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_BASH: true
+          VALIDATE_JSON: true
+          VALIDATE_MARKDOWN: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

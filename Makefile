@@ -13,7 +13,7 @@ help:
 	@echo "  worker        will build the ML image."
 	@echo "  clean         will remove the frames."
 
-≈:
+worker:
 	docker build -t highlights-cpu .
 
 clean:
