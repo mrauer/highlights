@@ -11,7 +11,7 @@ if [[ "$1" == *"dry-run"* ]]; then
 fi
 
 ./lib/predict  \
-    --docker-image nima-cpu \
+    --docker-image highlihts-cpu \
     --base-model-name MobileNet \
     --weights-file $(pwd)/lib/models/MobileNet/weights_mobilenet_aesthetic_0.07.hdf5 \
     --image-source $(pwd)/frames \

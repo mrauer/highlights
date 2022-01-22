@@ -22,7 +22,7 @@ HIGHTLIGHTS_OUTPUT_PATH (where you want the data to be outputted)
 Then those are the relevant commands to use the software. You must be at the root of the project:
 
 ```sh
-mave vendor (build the docker image, first time use only)
+make vendor (build the docker image, first time use only)
 python3 bulk.py --jobs <num_videos_to_process> (process a given number of videos)
 ```
 

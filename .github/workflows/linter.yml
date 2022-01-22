@@ -1,14 +1,14 @@
 ---
-###########################
-###########################
-## Linter GitHub Actions ##
-###########################
-###########################
+#################################
+#################################
+## Super Linter GitHub Actions ##
+#################################
+#################################
 name: Lint Code Base
 
 #
 # Documentation:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions
 #
 
 #############################
@@ -16,10 +16,10 @@ name: Lint Code Base
 #############################
 on:
   push:
-    branches-ignore: [master]
+    branches-ignore: [master, main]
     # Remove the line above to run when pushing to master
   pull_request:
-    branches: [master]
+    branches: [master, main]
 
 ###############
 # Set the Job #
@@ -51,9 +51,9 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: master
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_PYTHON_ISORT: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_BASH: true
-          DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

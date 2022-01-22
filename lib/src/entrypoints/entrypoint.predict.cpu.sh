@@ -10,7 +10,7 @@ DRY_RUN=$(echo $DRY_RUN)
 ACTION=$(echo $PREDICT_MODEL| cut -d'_' -f 3)
 
 # predict
-python -m evaluater.predict \
+python3 -m evaluater.predict \
 --base-model-name $BASE_MODEL_NAME \
 --weights-file $WEIGHTS_FILE \
 --image-source $IMAGE_SOURCE
@@ -19,15 +19,15 @@ if [ $ACTION == "technical" ]
 then
     if [ $DRY_RUN == "true" ]
     then
-        python /src/entrypoints/run.py tech --dry-run
+        python3 /src/entrypoints/run.py tech --dry-run
     else
-        python /src/entrypoints/run.py tech
+        python3 /src/entrypoints/run.py tech
     fi
 else
     if [ $DRY_RUN == "true" ]
     then
-        python /src/entrypoints/run.py aes --dry-run
+        python3 /src/entrypoints/run.py aes --dry-run
     else
-        python /src/entrypoints/run.py aes
+        python3 /src/entrypoints/run.py aes
     fi
 fi
