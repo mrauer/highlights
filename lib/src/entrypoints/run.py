@@ -35,8 +35,7 @@ def process_tech(dry_run=None):
         sorted_items[_id] = float(item['mean_score_prediction'])
 
     for key, value in sorted_items.items():
-        if float(value) <= np.percentile(
-            list(sorted_items.values()), TECHNICAL_PERCENTILE):
+        if float(value) <= np.percentile(list(sorted_items.values()), TECHNICAL_PERCENTILE):
             try:
                 if not dry_run:
                     os.remove('../src/frames/out-{}.jpg'.format(key))
