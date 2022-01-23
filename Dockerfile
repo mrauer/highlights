@@ -9,3 +9,5 @@ RUN apt-get update && \
 WORKDIR /src
 
 COPY lib/src .
+
+RUN mkdir frames

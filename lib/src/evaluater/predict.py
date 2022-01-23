@@ -34,7 +34,7 @@ def predict(model, data_generator):
 
 
 def store_output(filename, output):
-    f = open('/'.join(['/src/output', filename]), 'w')
+    f = open(filename, 'w')
     f.write(output)
     f.close()
 
@@ -69,8 +69,8 @@ def main(base_model_name, weights_file, image_source,
     output = json.dumps(samples, indent=2)
     print(output)
 
-    filename = 'technical.txt' if os.environ['PREDICT_MODEL'].find(
-        TECHNICAL_HDF5) != -1 else 'aesthetic.txt'
+    filename = '/tmp/technical.txt' if os.environ['PREDICT_MODEL'].find(
+        TECHNICAL_HDF5) != -1 else '/tmp/aesthetic.txt'
 
     store_output(filename, output)
 

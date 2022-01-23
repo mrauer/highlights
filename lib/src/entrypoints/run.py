@@ -10,20 +10,14 @@ from collections import OrderedDict
 import numpy as np
 
 FRAMES_GAP = 15
-TECHNICAL_PATH = '../src/output/technical.txt'
-AESTHETIC_PATH = '../src/output/aesthetic.txt'
+TECHNICAL_PATH = '/tmp/technical.txt'
+AESTHETIC_PATH = '/tmp/aesthetic.txt'
 TECHNICAL_PERCENTILE = 75
 AESTHETIC_PERCENTILE = 75
 
 FRAMES_DIR = '../src/frames/'
 
-DRY_RUN = False
-if len(sys.argv) == 3:
-    if sys.argv[2] == '--dry-run':
-        DRY_RUN = True
-
-
-def process_tech(dry_run=None):
+def process_tech():
     # Load from JSON file
     f = open(TECHNICAL_PATH, 'r')
     items = json.loads(f.read())
@@ -37,13 +31,12 @@ def process_tech(dry_run=None):
     for key, value in sorted_items.items():
         if float(value) <= np.percentile(list(sorted_items.values()), TECHNICAL_PERCENTILE):
             try:
-                if not dry_run:
-                    os.remove('../src/frames/out-{}.jpg'.format(key))
+                os.remove('../src/frames/out-{}.jpg'.format(key))
             except Exception:
                 pass
 
 
-def process_aes(dry_run=None):
+def process_aes():
     # Load from JSON file
     f = open(AESTHETIC_PATH, 'r')
     items = json.loads(f.read())
@@ -76,8 +69,7 @@ def process_aes(dry_run=None):
     for key, value in sorted_items.items():
         if key not in good_idx:
             try:
-                if not dry_run:
-                    os.remove('../src/frames/out-{}.jpg'.format(key))
+                os.remove('../src/frames/out-{}.jpg'.format(key))
             except Exception:
                 pass
 
@@ -89,19 +81,18 @@ def generate_hash():
         base64.b64encode(h).decode('utf-8')[:8])
 
 
-def bulk_rename(dry_run=None):
-    if not dry_run:
-        files = os.listdir(FRAMES_DIR)
-        _hash = generate_hash()
-        for index, file in enumerate(files):
-            os.rename(os.path.join(FRAMES_DIR, file), os.path.join(
-                FRAMES_DIR, file.replace('out', _hash)))
-            print(file)
+def bulk_rename():
+    files = os.listdir(FRAMES_DIR)
+    _hash = generate_hash()
+    for index, file in enumerate(files):
+        os.rename(os.path.join(FRAMES_DIR, file), os.path.join(
+            FRAMES_DIR, file.replace('out', _hash)))
+        print(file)
 
 
 if sys.argv[1] == 'tech':
-    process_tech(dry_run=DRY_RUN)
+    process_tech()
 
 if sys.argv[1] == 'aes':
-    process_aes(dry_run=DRY_RUN)
-    bulk_rename(dry_run=DRY_RUN)
+    process_aes()
+    bulk_rename()
