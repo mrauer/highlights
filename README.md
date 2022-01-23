@@ -2,11 +2,13 @@
 
 Highlights is a software that detects the best moments in a video. You can transform a long video into a set of images retracing the best shots using simple AI. Ideal for GoPros or any devices that records hours of videos and for which you want to be able to get a gallery of the top quality images as well as storing it at a much lower space toll than with the original format.
 
-<img src="./img/gallery.png" width="900px" />
+<img src="./images/gallery.png" width="900px" />
 
 ## How does it work?
 
-Multiple steps are necessary. The very first step is the conversion of the provided video to a set of images. These images will then go through two convolutional neural networks: one for technical aspects (blurry, on focus, etc...), and one for quality (ex: objects recognition). We keep just of small amount of images from the initial set (above 85% percentile for technical aspects, and 70% percentile for aesthetic).
+Multiple steps are necessary. The very first step is the conversion of the provided video to a set of images. These images will then go through two convolutional neural networks: one for technical aspects (blurry, on focus, etc...), and one for quality (ex: objects recognition).
+
+We keep just of small amount of images from the initial set (above 85% percentile for technical aspects, and 70% percentile for aesthetic).
 
 ## How to use highlights?
 
@@ -40,4 +42,4 @@ make clean (clean temporary images)
 
 ## Credits
 
-Credits to https://github.com/idealo/image-quality-assessment under Apache-2.0 License for which the code is partially used in this project.
+Credits to [https://github.com/idealo/image-quality-assessment](https://github.com/idealo/image-quality-assessment) under Apache-2.0 License for which the code is partially used in this project.

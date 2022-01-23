@@ -4,7 +4,6 @@ set -e
 BASE_MODEL_NAME="$1"
 WEIGHTS_FILE="$2"
 IMAGE_SOURCE="$3"
-DRY_RUN="$DRY_RUN"
 
 ACTION="$(echo "$PREDICT_MODEL"| cut -d'_' -f 3)"
 
@@ -16,17 +15,7 @@ python3 -m evaluater.predict \
 
 if [ "$ACTION" == "technical" ]
 then
-    if [ "$DRY_RUN" == "true" ]
-    then
-        python3 /src/entrypoints/run.py tech --dry-run
-    else
-        python3 /src/entrypoints/run.py tech
-    fi
+    python3 /src/entrypoints/run.py tech
 else
-    if [ "$DRY_RUN" == "true" ]
-    then
-        python3 /src/entrypoints/run.py aes --dry-run
-    else
-        python3 /src/entrypoints/run.py aes
-    fi
+    python3 /src/entrypoints/run.py aes
 fi

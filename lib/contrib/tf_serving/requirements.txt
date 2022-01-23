@@ -1,3 +1,0 @@
-Keras==2.2.*
-Pillow==5.3.*
-tensorflow-serving-api==1.12.*

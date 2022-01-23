@@ -33,16 +33,6 @@ case $key in
     shift # past argument
     shift # past value
     ;;
-    --no-crop)
-    NO_CROP="$2"
-    shift # past argument
-    shift # past value
-    ;;
-    --dry-run)
-    DRY_RUN="$2"
-    shift # past argument
-    shift # past value
-    ;;
     --image-source)
     IMAGE_SOURCE="$2"
     shift # past argument
@@ -65,7 +55,5 @@ DOCKER_RUN="docker run
   -v \"$OUTPUT_FILE\":/src/output
   -v \"$VIDEO_SOURCE\":/src/source
   --env PREDICT_MODEL=\"$WEIGHTS_FILE\"
-  --env NO_CROP=\"$NO_CROP\"
-  --env DRY_RUN=\"$DRY_RUN\"
   $DOCKER_IMAGE $BASE_MODEL_NAME /src/weights.hdf5 /src/$BASENAME_IS"
-eval "$DOCKER_RUN"
+eval $DOCKER_RUN
